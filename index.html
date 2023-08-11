@@ -31,7 +31,10 @@
         <audio id="song">
           <source src="6 God.mp3" type="audio/mpeg" />
         </audio>
-        <input type="range" value="0" id="music_progress" />
+        <div>
+  <input type="range" value="0" id="music_progress" />
+  <div id="duration_display">0:00</div>
+</div>
         <div class="controls">
           <div onclick="previous_track()">
             <i class="fa-solid fa-backward"></i>
@@ -55,7 +58,15 @@
         music_progress.max = song.duration;
         music_progress.value = song.currentTime;
       };
-
+      
+let duration_display = document.getElementById("duration_display");
+  duration_display.textContent = formatTime(song.duration);
+};
+      function format_time(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const remaining_seconds = Math.floor(seconds % 60);
+  return `${minutes}:${remaining_seconds.toString().padStart(2, "0")}`;
+}
       let tracks = [
         {
           title: "No love",
