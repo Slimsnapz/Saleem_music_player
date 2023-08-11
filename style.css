@@ -68,12 +68,7 @@ nav .circle{
     border-radius: 4px;
     cursor: pointer;
 }
-#duration_display {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #666;
-    text-align: center;
-  }
+
 #music_progress::-webkit-slider-thumb{
     -webkit-appearance: none;
     background: #fff;
