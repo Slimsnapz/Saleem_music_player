@@ -59,14 +59,7 @@
         music_progress.value = song.currentTime;
       };
       
-let duration_display = document.getElementById("duration_display");
-  duration_display.textContent = formatTime(song.duration);
-};
-      function format_time(seconds) {
-  const minutes = Math.floor(seconds / 60);
-  const remaining_seconds = Math.floor(seconds % 60);
-  return `${minutes}:${remaining_seconds.toString().padStart(2, "0")}`;
-}
+
       let tracks = [
         {
           title: "No love",
