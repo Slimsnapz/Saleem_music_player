@@ -1,168 +1,337 @@
-<!DOCTYPE html>
+<!<!DOCTYPE html>
+
 <html lang="en">
+
   <head>
+
     <meta charset="UTF-8" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <link rel="stylesheet" href="style.css" />
+
     <script
+
       src="https://kit.fontawesome.com/f1a7b56d75.js"
+
       crossorigin="anonymous"
+
     ></script>
+
     <title>Saleem music player</title>
+
   </head>
+
   <body>
+
     <div class="container">
+
       <div class="music_player">
+
         <nav>
+
           <div class="circle">
+
             <i class="fa-solid fa-angle-left"></i>
+
           </div>
+
           <div class="circle">
+
             <i class="fa-solid fa-bars"></i>
+
           </div>
+
         </nav>
+
         <img
+
           src="HD-wallpaper-music-music-symbol-thumbnail.jpg"
+
           alt="music player"
+
           class="song_image" class="playing_track"
+
         />
+
         <h1 id="track_title">Track Info</h1>
+
         <p id="artist">Artist</p>
+
         <audio id="song">
+
           <source src="6 God.mp3" type="audio/mpeg" />
+
         </audio>
+
         <div>
+
   <input type="range" value="0" id="music_progress" />
+
   <div id="duration_display">0:00</div>
+
 </div>
+
         <div class="controls">
+
           <div onclick="previous_track()">
+
             <i class="fa-solid fa-backward"></i>
+
           </div>
+
           <div onclick="play_pause()">
+
             <i class="fa-solid fa-play" id="control_icon"></i>
+
           </div>
+
           <div onclick="next_track()"><i class="fa-solid fa-forward"></i></div>
+
         </div>
+
       </div>
+
     </div>
 
+
+
     <script>
+
       let music_progress = document.getElementById("music_progress");
+
       let song = document.getElementById("song");
+
       let control_icon = document.getElementById("control_icon");
+
       let forward_icon = document.getElementById("fa-forward"); // Get the forward icon element
+
       let backward_icon = document.getElementById("fa-backward"); // Get the backward icon element
 
+
+
       song.onloadedmetadata = function () {
+
       // Inside the song.onloadedmetadata event handler
+
 song.onloadedmetadata = function () {
+
   music_progress.max = song.duration;
+
   music_progress.value = song.currentTime;
+
   
+
   // Update the duration display
+
   let durationDisplay = document.getElementById("duration_display");
+
   durationDisplay.textContent = formatTime(song.duration);
+
 };
 
+
+
 // Add a function to format the time in minutes and seconds
+
 function formatTime(seconds) {
+
   const minutes = Math.floor(seconds / 60);
+
   const remainingSeconds = Math.floor(seconds % 60);
+
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+
 }
+
+
+
 
 
       let tracks = [
+
         {
+
           title: "No love",
+
           artist: "Lil wanye Ft Eminem",
+
           source: "6 God.mp3",
+
         },
+
         {
+
           title: "06. Company - (www.SongsLover.pk)",
+
           artist: "Justin Bieber",
+
           source: "06. Company - (www.SongsLover.pk).mp3",
+
         },
+
         {
+
           title: "03. Fine China",
+
           artist: "chris Brown",
+
           source: "03. Fine China.mp3",
+
         },
+
       ];
+
+
 
       let current_track_index = 0;
 
+
+
       function update_track_info(index) {
+
     document.getElementById("track_title").innerHTML = tracks[index].title;
+
     document.getElementById("artist").innerHTML = tracks[index].artist;
+
 }
+
+
 
 // Function to load and play the track
+
 function load_and_play(index) {
+
   load_track(index); // Load the track
+
   song.play(); // Play the track
+
   update_track_info(index); // Update the track title and artist
+
   control_icon.classList.remove("fa-play");
+
   control_icon.classList.add("fa-pause");
+
 }
+
+
 
 function next_track() {
+
   current_track_index = current_track_index + 1;
+
   if (current_track_index < tracks.length) {
+
     load_and_play(current_track_index);
+
   } else {
+
     current_track_index = 0;
+
     load_and_play(current_track_index);
+
   }
+
 }
+
+
 
 function previous_track() {
+
   current_track_index = current_track_index - 1;
+
   if (current_track_index < 0) {
+
     current_track_index = tracks.length - 1;
+
     load_and_play(current_track_index);
+
   } else {
+
     load_and_play(current_track_index);
+
   }
+
 }
 
+
+
       function load_track(index) {
+
         song.src = tracks[index].source;
+
         // Update other track information like title and artist
+
         song.load();
+
       }
+
+
 
       function play_pause() {
+
         if (control_icon.classList.contains("fa-pause")) {
+
           song.pause();
+
           control_icon.classList.remove("fa-pause");
+
           control_icon.classList.add("fa-play");
+
           playing_track.classList.remove('playing_track'); // Remove animation class
+
           
+
         } else {
+
           song.play();
+
           control_icon.classList.remove("fa-play");
+
           control_icon.classList.add("fa-pause");
+
           playing_track.classList.add('playing_track'); // Add animation class when playing
+
           song.addEventListener(
+
             "timeupdate",
+
             () => {
+
               music_progress.value = song.currentTime;
+
             },
+
             50
+
           );
+
         }
+
       }
+
       music_progress.onchange = function () {
+
         song.play();
+
         song.currentTime = music_progress.value;
+
         control_icon.classList.remove("fa-play");
+
         control_icon.classList.add("fa-pause");
+
       };
+
     </script>
 
+
+
     <!-----------REMEMBER TO ADD A CONTINOUS LOAD TO THE PLAY BUTTON-->
+
     <!-----------ADD MORE ANIMATION TO MAKE THE MUSIC PLAYER MORE BEAUTIFUL-->
+
   </body>
+
 </html>
+
+
